@@ -4,7 +4,7 @@ from utils import download_image,image_generator
 from io import BytesIO
 from PIL import Image
 from fastapi.responses import StreamingResponse
-
+from fastapi import HTTPException
 def extract_features(image_path):
     image = download_image(image_path)
     image = np.asanyarray(image)
@@ -66,5 +66,22 @@ def make_picture_blur(image_path):
     dist = cv.filter2D(image, -1, kernel)
     blurred_pic = Image.fromarray(dist)
     return StreamingResponse(image_generator(blurred_pic), media_type="image/png")
+
+
+def human_face_detection(image_url):
+    try:
+        image = download_image(image_url)
+        image_np = np.asarray(image)
+        image_np = cv.cvtColor(image_np, cv.COLOR_RGB2BGR)  # Convert to BGR format
+        face_cascade = cv.CascadeClassifier(cv.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        gray_image = cv.cvtColor(image_np, cv.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5)
+        for (x, y, w, h) in faces:
+            cv.rectangle(image_np, (x, y), (x+w, y+h), (255, 0, 0), 2)
+        face_detected_image = Image.fromarray(cv.cvtColor(image_np, cv.COLOR_BGR2RGB))
+        return StreamingResponse(image_generator(face_detected_image), media_type="image/png")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Failed to detect faces: {str(e)}")
+
 
     

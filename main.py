@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app import extract_features, compare_picture_features,make_picture_blackAndwhite, make_picture_blur
+from app import extract_features, compare_picture_features,make_picture_blackAndwhite, make_picture_blur, human_face_detection
 from models import ImagePath,PicturesPath
 
 app = FastAPI()
@@ -19,3 +19,7 @@ def make_picture_bw(image_path:ImagePath):
 @app.post("/blur_picture")
 def blur_picture(image_path: ImagePath):
     return make_picture_blur(image_path.path)
+
+@app.post("/face_detection")
+def face_detection(image_path:ImagePath):
+    return human_face_detection(image_path.path)
