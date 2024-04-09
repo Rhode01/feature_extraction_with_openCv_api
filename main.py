@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app import extract_features, compare_picture_features
+from app import extract_features, compare_picture_features,make_picture_blackAndwhite
 from models import ImagePath,PicturesPath
 
 app = FastAPI()
@@ -11,3 +11,6 @@ def feature_extraction(image_path: ImagePath):
 @app.post("/feature_comparison")
 def picture_comparison(image_paths:PicturesPath):
     return compare_picture_features(image_paths.picture_urls)
+@app.post("/black_and_white")
+def make_picture_bw(image_path:ImagePath):
+    return make_picture_blackAndwhite(image_path.path)
