@@ -17,11 +17,7 @@ def extract_features(image_path):
     image_with_keypoints = cv.drawKeypoints(gray_image, keypoints, None)
     
     image_with_keypoints_pil = Image.fromarray(image_with_keypoints)
-    def image_generator():
-            img_byte_arr = BytesIO()
-            image_with_keypoints_pil.save(img_byte_arr, format="PNG")
-            yield img_byte_arr.getvalue()
-    return StreamingResponse(image_generator(), media_type="image/png")
+    return StreamingResponse(image_generator(image_with_keypoints_pil), media_type="image/png")
 def picture_features_comparison(img1, img2):
     img1 = np.asanyarray(img1)
     img2 = np.asanyarray(img2)
@@ -51,13 +47,7 @@ def compare_picture_features(image_paths):
     image2 = download_image(img2_url)
     comparison = picture_features_comparison(image1, image2)
     comparison_pil = Image.fromarray(comparison)
-
-    def image_generator():
-            img_byte_arr = BytesIO()
-            comparison_pil.save(img_byte_arr, format="PNG")
-            yield img_byte_arr.getvalue()
-
-    return StreamingResponse(image_generator(), media_type="image/png")
+    return StreamingResponse(image_generator(comparison_pil), media_type="image/png")
 
 def make_picture_blackAndwhite(image_path):
     image = download_image(image_path)
@@ -67,5 +57,4 @@ def make_picture_blackAndwhite(image_path):
     thresh = 127
     im_bw = cv.threshold(im_gray, thresh, 255, cv.THRESH_BINARY)[1]
     black_and_white = Image.fromarray(im_bw)
-    generate_img =image_generator(black_and_white)
-    return StreamingResponse(generate_img,media_type="image/png")
+    return StreamingResponse(image_generator(black_and_white),media_type="image/png")
