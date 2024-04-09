@@ -1,21 +1,21 @@
-#OpenCv Api
+# OpenCv Api
 Welcome to opencv api.
 
-#Prerequisites
+# Prerequisites
 ```bash
     Python version 3.5 and above
 ```
-#Getting Started
-##Clone the repository
+# Getting Started
+## Clone the repository
 ```bash
 git clone https://github.com/Rhode01/feature_extraction_with_openCv_api.git 
 cd feature_extraction_with_openCv_api
 ```
-##Creating Virtual Env
+## Creating Virtual Env
 ```bash
 python -m venv myvenv
 ```
-###installing dependencies
+### installing dependencies
 This command will install the required packages specified in the requirements.txt
 ```bash
 pip install > requirements.txt
@@ -31,7 +31,7 @@ Provide the path to the picture that you want to map its feature using a json re
 "path": "The link to the picture"
 }
 
-#How to use the api
+# How to use the api
  ```bash ```
 
 
