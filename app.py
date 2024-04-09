@@ -58,3 +58,13 @@ def make_picture_blackAndwhite(image_path):
     im_bw = cv.threshold(im_gray, thresh, 255, cv.THRESH_BINARY)[1]
     black_and_white = Image.fromarray(im_bw)
     return StreamingResponse(image_generator(black_and_white),media_type="image/png")
+
+def make_picture_blur(image_path):
+    image = download_image(image_path)
+    image= np.asanyarray(image)
+    kernel = np.ones((5,5), np.float32)/25
+    dist = cv.filter2D(image, -1, kernel)
+    blurred_pic = Image.fromarray(dist)
+    return StreamingResponse(image_generator(blurred_pic), media_type="image/png")
+
+    
