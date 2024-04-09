@@ -1,11 +1,11 @@
 # OpenCv Api
 Welcome to opencv api.
 
-# Prerequisites
+## Prerequisites
 ```bash
     Python version 3.5 and above
 ```
-# Getting Started
+## Getting Started
 ## Clone the repository
 ```bash
 git clone https://github.com/Rhode01/feature_extraction_with_openCv_api.git 
@@ -20,18 +20,23 @@ This command will install the required packages specified in the requirements.tx
 ```bash
 pip install > requirements.txt
 ```
+### Starting the server
 
-# feature_extraction_with_openCv_api
-To use the api please install the libraries in the requirements.txt file.
-After installing the libralies start your uvicorn server by: uvicorn main:app --reload
-if using uvicorn main:app --reload is not going to work, use python -m main:app --reload
-Open your browser and navigate to localhost:8000/docs where you can now make your post request to the api
-Provide the path to the picture that you want to map its feature using a json request like
+```bash
+uvicorn main:app --reload
+```
+### using the Api
+Using the API
+Once the server is running, open your browser and navigate to localhost:8000/docs.
+Here, you'll find the Swagger UI documentation for the API, allowing you to make requests.
+Provide the path to the picture that you want to map its features using a JSON request like:
+
+```bash
 {
-"path": "The link to the picture"
+    "path": "The link to the picture"
 }
 
-# How to use the api
- ```bash ```
+```
+
 
 
