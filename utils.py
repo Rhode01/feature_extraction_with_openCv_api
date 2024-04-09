@@ -13,3 +13,9 @@ def download_image(url_or_path):
         return image
     except Exception as e:
         raise ValueError(f"Failed to download image: {str(e)}")
+
+def image_generator(image):
+            img_byte_arr = BytesIO()
+            image.save(img_byte_arr, format="PNG")
+            img = yield img_byte_arr.getvalue()
+            return img

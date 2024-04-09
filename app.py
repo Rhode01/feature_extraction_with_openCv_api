@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-from utils import download_image
+from utils import download_image,image_generator
 from io import BytesIO
 from PIL import Image
 from fastapi.responses import StreamingResponse
@@ -59,4 +59,13 @@ def compare_picture_features(image_paths):
 
     return StreamingResponse(image_generator(), media_type="image/png")
 
-    
+def make_picture_blackAndwhite(image_path):
+    image = download_image(image_path)
+    image = np.asanyarray(image)
+    im_gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+    (thresh, im_bw) = cv.threshold(im_gray, 128, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)
+    thresh = 127
+    im_bw = cv.threshold(im_gray, thresh, 255, cv.THRESH_BINARY)[1]
+    black_and_white = Image.fromarray(im_bw)
+    generate_img =image_generator(black_and_white)
+    return StreamingResponse(generate_img,media_type="image/png")
