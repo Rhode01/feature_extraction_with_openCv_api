@@ -72,7 +72,7 @@ def human_face_detection(image_url):
     try:
         image = download_image(image_url)
         image_np = np.asarray(image)
-        image_np = cv.cvtColor(image_np, cv.COLOR_RGB2BGR)  # Convert to BGR format
+        image_np = cv.cvtColor(image_np, cv.COLOR_RGB2BGR)
         face_cascade = cv.CascadeClassifier(cv.data.haarcascades + 'haarcascade_frontalface_default.xml')
         gray_image = cv.cvtColor(image_np, cv.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5)
